@@ -47,8 +47,8 @@ const options = {
 
 function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [goodPosts, setGoodPosts] = useState(null);
-  const [badPosts, setBadPosts] = useState(null);
+  const [goodPosts, setGoodPosts] = useState([]);
+  const [badPosts, setBadPosts] = useState([]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -99,8 +99,8 @@ function App() {
               getPosts(`${place.name}+az`)
                 .then((res) => {
                   console.log(res);
-                  setGoodPosts(res.data.goodPosts);
-                  setBadPosts(res.data.badPosts);
+                  setGoodPosts(res.data.goodPosts || []);
+                  setBadPosts(res.data.badPosts || []);
                 })
                 .catch((err) => console.log(err));
             }}
