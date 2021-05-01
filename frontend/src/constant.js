@@ -8690,3 +8690,5 @@ const markers = [
    "longitude": -110.4739
  }
 ];
+
+export default markers;

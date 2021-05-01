@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import './App.css';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import "@reach/combobox/styles.css";
@@ -8,6 +8,7 @@ import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocom
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from "@reach/combobox";
 import SearchIcon from '@material-ui/icons/Search';
 import ExploreIcon from '@material-ui/icons/Explore';
+import markers from "./constant";
 
 
 const libraries = ["places"];
@@ -29,6 +30,7 @@ const options = {
 };
 
 function App() {
+
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: 'AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ',
     libraries,
@@ -68,6 +70,13 @@ function App() {
         options={options}
         onLoad={onMapLoad}
       >
+      
+      {markers.map((place) => (
+        <Marker
+          key={place.name}
+          position={{lat: place.latitude, lng: place.longitude }}
+        />
+      ))}
 
       </GoogleMap>
     </div>
