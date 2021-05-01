@@ -35,7 +35,7 @@ def convert_positivity(prm_x):
 def remove_handles(prm_x):
     return " ".join(filter(lambda n: "@" not in n, prm_x.split()))
 
-def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "10km", count = 100):
+def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "5km", count = 100):
     rt_filtered_query = "{}%20-filter%3Aretweets".format(prm_query)
     return "{}?q={}&geocode={},{},{}&count={}&tweet_mode=extended&lang=en".format(resource_url, rt_filtered_query, prm_lat, prm_lon, radius, count)
 
