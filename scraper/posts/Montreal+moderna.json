@@ -1,0 +1,14 @@
+{
+    "location": "Montreal",
+    "posts": [
+        {
+            "tweetId": 1388542805149200389,
+            "profileImg": "http://pbs.twimg.com/profile_images/1357912758377984000/bn162dew_normal.jpg",
+            "creationDate": "Sat May 01 17:16:17 +0000 2021",
+            "user": "timo maas",
+            "handle": "timomaa02021284",
+            "content": "@FarhiSarah4 @LeaStreliski 6G cest moderna ? Lol",
+            "isPositive": true
+        }
+    ]
+}

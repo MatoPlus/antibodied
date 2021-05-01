@@ -1,0 +1,32 @@
+{
+    "location": "Montreal",
+    "posts": [
+        {
+            "tweetId": 1388498565002039297,
+            "profileImg": "http://pbs.twimg.com/profile_images/1286129822989783046/W1X0eo49_normal.jpg",
+            "creationDate": "Sat May 01 14:20:29 +0000 2021",
+            "user": "SIBOMANA Jean Bosco",
+            "handle": "sibomanaxyz987",
+            "content": "South Korean President Moon Jae-in, left, receives his second dose of the AstraZeneca COVID-19 vaccine at a health care center in Seoul, South Korea, Friday, April 30, 2021. (Photo by Lee Jin-wook/Yonhap via AP Photo) https://t.co/3CPQnXivv6",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388522079729897479,
+            "profileImg": "http://pbs.twimg.com/profile_images/1302414781383692288/6uIQEVTU_normal.jpg",
+            "creationDate": "Sat May 01 15:53:55 +0000 2021",
+            "user": "Raymond Robillard",
+            "handle": "carbmac",
+            "content": "@RicMathieu Dans mon coin (Montr\u00e9al, quartier Rosemont-PP), la pharmacienne nous a expliqu\u00e9 que c'est Moderna dans les pharmacies (les 4 Jean Coutu de notre quartier) ou Pfizer au centre de vaccination.  Astra-Zeneca si c'est indiqu\u00e9 sur la prise de r/v sur le site Clic-Sant\u00e9.",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388537663905538053,
+            "profileImg": "http://pbs.twimg.com/profile_images/565510848961974273/91TDdbAf_normal.jpeg",
+            "creationDate": "Sat May 01 16:55:51 +0000 2021",
+            "user": "Marco de Blois",
+            "handle": "mdbl",
+            "content": "@MarcCassivi Je suis de la g\u00e9n\u00e9ration Capitaine Bonhomme / Patofville et j'ai eu l'AZ !",
+            "isPositive": true
+        }
+    ]
+}

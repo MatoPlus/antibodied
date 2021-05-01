@@ -1,0 +1,14 @@
+{
+    "location": "Toronto",
+    "posts": [
+        {
+            "tweetId": 1388553477702537219,
+            "profileImg": "http://pbs.twimg.com/profile_images/3467400556/90033f31e373084bdc4ae5119ad1e97a_normal.jpeg",
+            "creationDate": "Sat May 01 17:58:41 +0000 2021",
+            "user": "Toronto Kris",
+            "handle": "torontokris",
+            "content": "@JoseSanchez19 @HRHospital @VaxHuntersCan They providing mRNA which is either Pfizer or Moderna. Curious why does it matter?",
+            "isPositive": false
+        }
+    ]
+}
