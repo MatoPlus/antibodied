@@ -1,8 +1,9 @@
+import csv
+import json
 import requests
 from requests_oauthlib import OAuth1
 from dotenv import dotenv_values
 from google.cloud import storage
-import json
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
@@ -34,23 +35,32 @@ if __name__ == "__main__":
     config = dotenv_values(".env")
     auth = OAuth1(config["CONSUMER_KEY"], config["CONSUMER_SECRET"], config["ACCESS_TOKEN"], config["ACCESS_TOKEN_SECRET"])
 
-    toronto_loc = (43.653908, -79.384293)
-    request_url = get_tweets_query_from_location("Pfizer", toronto_loc[0], toronto_loc[1])
-    response = requests.get(request_url, auth = auth)
+    # Load city names, latitude, longitude dictionaries into `cities_and_locs`
+    cities_and_locs = []
+    with open('scraper/canadacities.csv', 'r') as csv_cities:
+        cities_reader = csv.DictReader(csv_cities)
+        for row in cities_reader:
+            cities_and_locs.append(row)
+    print(cities_and_locs)
 
-    for tweet_raw in response.json()["statuses"]:
-        tweet_fmt = {
-            "profileImg" : tweet_raw["user"]["profile_image_url"],
-            "creationDate" : tweet_raw["created_at"],
-            "user" : tweet_raw["user"]["name"],
-            "handle" : tweet_raw["user"]["screen_name"],
-            "content" : tweet_raw["text"]
-        }
-        print(tweet_fmt)
+    # 
+    for in_city in cities_and_locs:
+        request_url = get_tweets_query_from_location("Pfizer", in_city["latitude"], in_city["longitude"])
+        response = requests.get(request_url, auth = auth)
+
+        for tweet_raw in response.json()["statuses"]:
+            tweet_fmt = {
+                "profileImg" : tweet_raw["user"]["profile_image_url"],
+                "creationDate" : tweet_raw["created_at"],
+                "user" : tweet_raw["user"]["name"],
+                "handle" : tweet_raw["user"]["screen_name"],
+                "content" : tweet_raw["text"]
+            }
+            print(tweet_fmt)
     
-    # We have this raw tweet, we can simply serialize it
-    with open("./posts/test.json", "w") as outfile:
-        json.dump(tweet_fmt, outfile, indent=4)
+    # # We have this raw tweet, we can simply serialize it
+    # with open("./posts/test.json", "w") as outfile:
+    #     json.dump(tweet_fmt, outfile, indent=4)
 
-    # Upload the locally saved file to GCP Cloud ticket
-    upload_blob("antibodied-posts", "./posts/test.json", "test.json")
+    # # Upload the locally saved file to GCP Cloud ticket
+    # upload_blob("antibodied-posts", "./posts/test.json", "test.json")
