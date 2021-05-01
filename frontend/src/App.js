@@ -30,6 +30,7 @@ const options = {
 };
 
 function App() {
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: 'AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ',
@@ -70,13 +71,30 @@ function App() {
         options={options}
         onLoad={onMapLoad}
       >
-      
+
       {markers.map((place) => (
         <Marker
           key={place.name}
           position={{lat: place.latitude, lng: place.longitude }}
+          onClick={() => {
+            setSelectedPlace(place);
+          }}
         />
       ))}
+      {/*Grab all backend data and place within these div tags within the IndoWindow!*/}
+      {selectedPlace && (
+        <InfoWindow
+          position={{lat: selectedPlace.latitude, lng: selectedPlace.longitude }}
+          onCloseClick={() => {
+            setSelectedPlace(null)
+          }}
+        >
+          <div>
+            <h2>{selectedPlace.name}</h2>
+            <h2>thisworkslol</h2>
+          </div>
+        </InfoWindow>
+      )}
 
       </GoogleMap>
     </div>
