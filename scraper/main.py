@@ -17,17 +17,20 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
     # destination_blob_name = "storage-object-name"
 
     # Explicitly use service account credentials by specifying the private key file.
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
-    blob = bucket.blob(destination_blob_name)
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(destination_blob_name)
 
-    blob.upload_from_filename(source_file_name)
+        blob.upload_from_filename(source_file_name)
 
-    print(
-        "File {} uploaded to {}.".format(
-            source_file_name, destination_blob_name
+        print(
+            "File {} uploaded to {}.".format(
+                source_file_name, destination_blob_name
+            )
         )
-    )
+    except:
+        print("  Exception 3: failed to upload file \"{}\" to bucket".format(source_file_name))
 
 def convert_positivity(prm_x):
     return (-1 if prm_x < 0 else 1) if prm_x else 0
@@ -35,7 +38,7 @@ def convert_positivity(prm_x):
 def remove_handles(prm_x):
     return " ".join(filter(lambda n: "@" not in n, prm_x.split()))
 
-def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "5km", count = 100):
+def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "10km", count = 4):
     rt_filtered_query = "{}%20-filter%3Aretweets".format(prm_query)
     return "{}?q={}&geocode={},{},{}&count={}&tweet_mode=extended&lang=en".format(resource_url, rt_filtered_query, prm_lat, prm_lon, radius, count)
 
@@ -58,9 +61,12 @@ if __name__ == "__main__":
         for row in cities_reader:
             cities_and_locs.append(row)
 
+    # For statistical purposes, record number of successfully extracted tweets
+    tweet_count = 0
+
     # Load tweets into their respective JSON file keys within `tweets_body`
     tweets_body = {}
-    for in_city in cities_and_locs:
+    for city_index, in_city in enumerate(cities_and_locs):
         city_name = in_city["name"]
         for vaccine_name in vaccine_handles:
             json_file_name = "{}+{}".format(city_name, vaccine_name)
@@ -78,7 +84,7 @@ if __name__ == "__main__":
                 tweets_fmt = []
                 if "statuses" in json_response:
                     # Successful Twitter API request
-                    print("\nGood Request: {}".format(json_file_name))
+                    print("Good Request (City #{}): {}".format(city_index, json_file_name))
                     bad_request = False
 
                     for tweet_raw in json_response["statuses"]:
@@ -91,14 +97,15 @@ if __name__ == "__main__":
                             "content" : remove_handles(tweet_raw["full_text"].replace('\n', ' '))
                         }
                         tweets_fmt.append(tweet_fmt)
-                        print("    Appended Tweet: @{} => \"{} ...\"".format(tweet_fmt["handle"], tweet_fmt["content"][:80]))
+                        tweet_count += 1
+                        # print("    Appended Tweet: @{} => \"{} ...\"".format(tweet_fmt["handle"], tweet_fmt["content"][:80]))
 
-                        # 2-second delay to reach the maximum 450 requests per 15 minutes
-                        sleep(2)
+                    # 2-second delay to reach the maximum 450 requests per 15 minutes
+                    sleep(2)
                 else:
                     # Failed Twitter API request
-                    print("\nBad Request: {}".format(json_file_name))
-                    sleep(60)
+                    print("Bad Request: {}".format(json_file_name))
+                    sleep(30)
 
             # Store all of `tweets_fmt` in its respective JSON file key
             if json_file_name in tweets_body:
@@ -114,13 +121,21 @@ if __name__ == "__main__":
     for json_file_name in tweets_body:
         for obj_index, tweet_obj in enumerate(tweets_body[json_file_name]):
             tweet_id = tweet_obj["tweetId"]
-            if tweet_id not in tweet_cache:
-                # Cache sentiment of the text from a tweet (defined uniquely by its ID)
-                document = language_v1.Document(content = tweet_obj["content"], type_ = language_v1.Document.Type.PLAIN_TEXT)
-                sentiment = lang_client.analyze_sentiment(request = { 'document': document }).document_sentiment
-                tweet_cache[tweet_id] = convert_positivity(sentiment.score)
-            # Update the tweet's dictionary with the sentiment response
-            tweets_body[json_file_name][obj_index]["isPositive"] = tweet_cache[tweet_id]
+            try:
+                if tweet_id not in tweet_cache:
+                    # Cache sentiment of the text from a tweet (defined uniquely by its ID)
+                    document = language_v1.Document(content = tweet_obj["content"], type_ = language_v1.Document.Type.PLAIN_TEXT)
+                    sentiment = lang_client.analyze_sentiment(request = { 'document': document }).document_sentiment
+                    tweet_cache[tweet_id] = convert_positivity(sentiment.score)
+                # Update the tweet's dictionary with the sentiment response
+                tweets_body[json_file_name][obj_index]["isPositive"] = tweet_cache[tweet_id]
+            except:
+                # Default to 0: happens when a foreign language is analyzed
+                tweets_body[json_file_name][obj_index]["isPositive"] = 0
+                print("  Exception 1: ran into foreign language in \"{}\"".format(json_file_name))
+            
+            # Meet the maximized 600 requests / minute
+            sleep(0.1)
     
     # Serialize the tweet JSON content, dump JSON into files of "<city name>+<vaccine name>.json"
     for json_file_name in tweets_body:
@@ -130,13 +145,18 @@ if __name__ == "__main__":
             "vaccine": vaccine_name,
             "posts": tweets_body[json_file_name]
         }
-        with open("./scraper/posts/{}.json".format(json_file_name), "w") as outfile:
-            json.dump(full_json_cont, outfile, indent = 4)
+        try:
+            with open("./scraper/posts/{}.json".format(json_file_name), "w") as outfile:
+                json.dump(full_json_cont, outfile, indent = 4)
+        except:
+            print("   Exception 2: JSON dump failed")
 
     # Upload the locally saved file to GCP Cloud ticket
     print("\n=== Blob Uploading ===\n")
     for json_file_name in tweets_body:
-        upload_blob("antibodied-posts", "./scraper/posts/{}.json".format(json_file_name), "{}.json".format(json_file_name))
-        sleep(1)
+        # upload_blob("antibodied-posts", "./scraper/posts/{}.json".format(json_file_name), "{}.json".format(json_file_name))
 
-    print("\nRun Finished")
+        # Arbitrary sleep to not overflow system
+        sleep(0.25)
+
+    print("\nRun Finished: {} tweets used".format(tweet_count))
