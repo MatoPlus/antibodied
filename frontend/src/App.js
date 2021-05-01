@@ -23,6 +23,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import ExploreIcon from "@material-ui/icons/Explore";
 import markers from "./constant";
+import { getPosts } from "./api";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -46,6 +47,7 @@ const options = {
 
 function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [posts, setPosts] = useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -93,6 +95,9 @@ function App() {
             position={{ lat: place.latitude, lng: place.longitude }}
             onClick={() => {
               setSelectedPlace(place);
+              getPosts(`${place.name}+az`)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
             }}
           />
         ))}
