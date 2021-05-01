@@ -47,7 +47,8 @@ const options = {
 
 function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [posts, setPosts] = useState(null);
+  const [goodPosts, setGoodPosts] = useState(null);
+  const [badPosts, setBadPosts] = useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -96,7 +97,11 @@ function App() {
             onClick={() => {
               setSelectedPlace(place);
               getPosts(`${place.name}+az`)
-                .then((res) => console.log(res))
+                .then((res) => {
+                  console.log(res);
+                  setGoodPosts(res.data.goodPosts);
+                  setBadPosts(res.data.badPosts);
+                })
                 .catch((err) => console.log(err));
             }}
           />
@@ -114,7 +119,13 @@ function App() {
           >
             <div>
               <h2>{selectedPlace.name}</h2>
-              <h2>thisworkslol</h2>
+              {goodPosts.map((post) => {
+                return <div>{post.content}</div>;
+              })}
+              <div>--</div>
+              {badPosts.map((post) => {
+                return <div>{post.content}</div>;
+              })}
             </div>
           </InfoWindow>
         )}
