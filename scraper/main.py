@@ -28,18 +28,22 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
         )
     )
 
-def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "10km", count = 1):
+def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "10km", count = 3):
     rt_filtered_query = "{}%20-filter%3Aretweets".format(prm_query)
     return "{}?q={}&geocode={},{},{}&count={}&tweet_mode=extended".format(resource_url, rt_filtered_query, prm_lat, prm_lon, radius, count)
 
 if __name__ == "__main__":
     config = dotenv_values(".env")
     auth = OAuth1(config["CONSUMER_KEY"], config["CONSUMER_SECRET"], config["ACCESS_TOKEN"], config["ACCESS_TOKEN_SECRET"])
+
+    # Declare vaccine handles, compute search queries (expects 1 word per handle)
     vaccine_handles = {
         "pfizer" : ["Pfizer"],
         "moderna" : ["Moderna"],
-        "az" : ["AstraZeneca", "Astra+Zeneca", "AZ"]
+        "az" : ["AstraZeneca", "Astra", "Zeneca", "AZ"]
     }
+    for vaccine_name in vaccine_handles:
+        vaccine_handles[vaccine_name] = "%20OR%20".join(vaccine_handles[vaccine_name])
 
     # Load city names, latitude, longitude dictionaries into `cities_and_locs`
     cities_and_locs = []
@@ -54,22 +58,21 @@ if __name__ == "__main__":
         city_name = in_city["name"]
         for vaccine_name in vaccine_handles:
 
+            request_url = get_tweets_query_from_location(vaccine_handles[vaccine_name], in_city["latitude"], in_city["longitude"])
+            response = requests.get(request_url, auth = auth)
+
             # Accumulate `tweets_fmt` as a list of tweets (as dictionaries) with this `city_name` and contains this `vaccine_handle` 
             tweets_fmt = []
-            for vaccine_handle in vaccine_handles[vaccine_name]:
-                request_url = get_tweets_query_from_location(vaccine_handle, in_city["latitude"], in_city["longitude"])
-                response = requests.get(request_url, auth = auth)
-
-                for tweet_raw in response.json()["statuses"]:
-                    tweet_fmt = {
-                        "tweetId" : tweet_raw["id"],
-                        "profileImg" : tweet_raw["user"]["profile_image_url"],
-                        "creationDate" : tweet_raw["created_at"],
-                        "user" : tweet_raw["user"]["name"],
-                        "handle" : tweet_raw["user"]["screen_name"],
-                        "content" : tweet_raw["full_text"].replace('\n', '')
-                    }
-                    tweets_fmt.append(tweet_fmt)
+            for tweet_raw in response.json()["statuses"]:
+                tweet_fmt = {
+                    "tweetId" : tweet_raw["id"],
+                    "profileImg" : tweet_raw["user"]["profile_image_url"],
+                    "creationDate" : tweet_raw["created_at"],
+                    "user" : tweet_raw["user"]["name"],
+                    "handle" : tweet_raw["user"]["screen_name"],
+                    "content" : tweet_raw["full_text"].replace('\n', '')
+                }
+                tweets_fmt.append(tweet_fmt)
 
             # Store all of `tweets_fmt` in its respective JSON file key
             json_file_name = "{}+{}".format(city_name, vaccine_name)
@@ -104,6 +107,6 @@ if __name__ == "__main__":
         with open("./scraper/posts/{}.json".format(json_file_name), "w") as outfile:
             json.dump(full_json_cont, outfile, indent = 4)
 
-    # Upload the locally saved file to GCP Cloud ticket
-    for json_file_name in tweets_body:
-        upload_blob("antibodied-posts", "./scraper/posts/{}.json".format(json_file_name), "{}.json".format(json_file_name))
+    # # Upload the locally saved file to GCP Cloud ticket
+    # for json_file_name in tweets_body:
+    #     upload_blob("antibodied-posts", "./scraper/posts/{}.json".format(json_file_name), "{}.json".format(json_file_name))

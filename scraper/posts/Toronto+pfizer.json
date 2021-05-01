@@ -2,13 +2,31 @@
     "location": "Toronto",
     "posts": [
         {
-            "tweetId": 1388553477702537219,
-            "profileImg": "http://pbs.twimg.com/profile_images/3467400556/90033f31e373084bdc4ae5119ad1e97a_normal.jpeg",
-            "creationDate": "Sat May 01 17:58:41 +0000 2021",
-            "user": "Toronto Kris",
-            "handle": "torontokris",
-            "content": "@JoseSanchez19 @HRHospital @VaxHuntersCan They providing mRNA which is either Pfizer or Moderna. Curious why does it matter?",
+            "tweetId": 1388572961444179975,
+            "profileImg": "http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png",
+            "creationDate": "Sat May 01 19:16:07 +0000 2021",
+            "user": "\ud83d\udc9b",
+            "handle": "canfolks",
+            "content": "@cookiesplez @tanu21904793 @BlackCreekCHC How do you know it\u2019s Pfizer",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388572691125374978,
+            "profileImg": "http://pbs.twimg.com/profile_images/3214027869/315d5798a429befc90662438f43eba94_normal.jpeg",
+            "creationDate": "Sat May 01 19:15:02 +0000 2021",
+            "user": "Stan Wong",
+            "handle": "StanWongWealth",
+            "content": "Single Pfizer Vaccine Shot May Not Protect Against Covid Variants, Study Warns https://t.co/7jqf9k98Mt $PFE #investing #covid19",
             "isPositive": false
+        },
+        {
+            "tweetId": 1388571427318771713,
+            "profileImg": "http://pbs.twimg.com/profile_images/1592065500/IMG-20111001-00181_normal.jpg",
+            "creationDate": "Sat May 01 19:10:01 +0000 2021",
+            "user": "Grace Sabino",
+            "handle": "GSabino14",
+            "content": "Best sticker to have nowadays!  #Pfizer #Thankful https://t.co/ZgbFeb78uh",
+            "isPositive": true
         }
     ]
 }

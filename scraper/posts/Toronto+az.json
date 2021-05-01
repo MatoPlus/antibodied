@@ -2,30 +2,30 @@
     "location": "Toronto",
     "posts": [
         {
-            "tweetId": 1388552730860457986,
-            "profileImg": "http://pbs.twimg.com/profile_images/1131125791171989505/Wh3ghViE_normal.jpg",
-            "creationDate": "Sat May 01 17:55:43 +0000 2021",
-            "user": "PSBlaw",
-            "handle": "BregmanPs",
-            "content": "@fredwalton216 They were talking about the AstraZeneca vaccine. It is produced in the same plant as the J&amp;J vaccine. Regulators reviewed the data and said the vaccine is safe.  The first J&amp;J vaccine arrives in Canada on Wed.",
-            "isPositive": true
-        },
-        {
-            "tweetId": 1388524023882133508,
-            "profileImg": "http://pbs.twimg.com/profile_images/1003458697627136000/PcdLmjFq_normal.jpg",
-            "creationDate": "Sat May 01 16:01:39 +0000 2021",
-            "user": "Beth Levy",
-            "handle": "Beth_Levy66",
-            "content": "@jm_mcgrath The focus is on Pfizer and Moderna. What about those who received the Astra Zeneca? That\u2019s a concern",
+            "tweetId": 1388572692220157957,
+            "profileImg": "http://pbs.twimg.com/profile_images/1334234452260769793/KyOUOLei_normal.jpg",
+            "creationDate": "Sat May 01 19:15:02 +0000 2021",
+            "user": "Ecem G\u00fcle\u00e7",
+            "handle": "EcemGulec",
+            "content": "@zafer_nergiz_ \u015eimdilik yok san\u0131r\u0131m. A\u015f\u0131 sorunu \u00e7\u00f6z\u00fcl\u00fcyor dediler. Oldum Biontech bende az \u00f6nce.",
             "isPositive": false
         },
         {
-            "tweetId": 1388552442393120772,
-            "profileImg": "http://pbs.twimg.com/profile_images/912471051254288385/O7eXDs1H_normal.jpg",
-            "creationDate": "Sat May 01 17:54:34 +0000 2021",
-            "user": "\u0639\u0628\u062f\u0627\u0644\u0639\u0632\u064a\u0632 \u0627\u0644\u0639\u0635\u064a\u0645\u064a",
-            "handle": "Az_Osaimi",
-            "content": "\u0627\u0639\u0631\u0641 \u0634\u062e\u0635 - \u0645\u0639\u0631\u0641\u0629 \u0634\u062e\u0635\u064a\u0629 \u062d\u0642\u064a\u0642\u064a\u0629 \u0648\u0644\u064a\u0633\u062a \u0645\u062c\u0627\u0632\u0627\u064b- \u0627\u0646\u062a\u062d\u0631 \u0628\u0639\u062f \u0627\u0634\u0647\u0631 \u0642\u0644\u064a\u0644\u0629 \u0645\u0646 \u0642\u0631\u0627\u0621\u062a\u0647 \u0644\u0646\u064a\u062a\u0634\u0629 \u060c \u0645\u0627\u062a\u0631\u0627\u0647 \u0627\u0644\u0643\u0627\u062a\u0628\u0629 \u0637\u0631\u0628\u0627\u064b \u0639\u0646\u062f \u0643\u062b\u064a\u0631\u064a\u0646 \u0639\u062f\u0645 \u0645\u0638\u0644\u0645 \u2026 https://t.co/v482AWHwfw",
+            "tweetId": 1388570571223576578,
+            "profileImg": "http://pbs.twimg.com/profile_images/1303085024326168581/4IODsBcE_normal.jpg",
+            "creationDate": "Sat May 01 19:06:37 +0000 2021",
+            "user": "Thomas Bartelmess",
+            "handle": "bartelmess",
+            "content": "@letsgettalking5 @dinipc @AnitaOakville @HonAhmedHussen Yes. As far as I know there is currently no delivery scheduled. Canada has a total of 22 Million AZ doses on order. (https://t.co/GpfDCdj0yC). In the past the forecast for AZ was not really predictable. So some doses might show up at short notice.",
+            "isPositive": false
+        },
+        {
+            "tweetId": 1388569260658679809,
+            "profileImg": "http://pbs.twimg.com/profile_images/1369466253346287616/-sUZeVkQ_normal.jpg",
+            "creationDate": "Sat May 01 19:01:24 +0000 2021",
+            "user": "Shirley Herrera",
+            "handle": "MissHerrera11",
+            "content": "@ScarboroughCAN @VaxHuntersCan @SHNcares Are they with Pfizer or Moderna or Astrazeneca?",
             "isPositive": true
         }
     ]

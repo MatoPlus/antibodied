@@ -2,12 +2,30 @@
     "location": "Montreal",
     "posts": [
         {
-            "tweetId": 1388542805149200389,
-            "profileImg": "http://pbs.twimg.com/profile_images/1357912758377984000/bn162dew_normal.jpg",
-            "creationDate": "Sat May 01 17:16:17 +0000 2021",
-            "user": "timo maas",
-            "handle": "timomaa02021284",
-            "content": "@FarhiSarah4 @LeaStreliski 6G cest moderna ? Lol",
+            "tweetId": 1388572838454566916,
+            "profileImg": "http://pbs.twimg.com/profile_images/1387492905707876353/VIGPyEfd_normal.jpg",
+            "creationDate": "Sat May 01 19:15:37 +0000 2021",
+            "user": "\ud83e\uddda\ud83c\udffc\u200d\u2640\ufe0f",
+            "handle": "kamso2times",
+            "content": "@icedteabih moderna bihhhh",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388571931012698113,
+            "profileImg": "http://pbs.twimg.com/profile_images/1361035418402230280/3z6NDiLm_normal.jpg",
+            "creationDate": "Sat May 01 19:12:01 +0000 2021",
+            "user": "\ud83d\udc9e",
+            "handle": "_suziaa",
+            "content": "\u00catre vaccin\u00e9 pour aller au resto? SIGN ME IN!!! Moderna ou pfizer tho?",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388555751501844481,
+            "profileImg": "http://pbs.twimg.com/profile_images/1268507772905230337/aYAsewYt_normal.jpg",
+            "creationDate": "Sat May 01 18:07:43 +0000 2021",
+            "user": "Cult MTL",
+            "handle": "CultMTL",
+            "content": "The Pfizer and Moderna vaccines will be prioritized for women who are pregnant. https://t.co/zIqMTZ6LT0",
             "isPositive": true
         }
     ]
