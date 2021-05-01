@@ -49,6 +49,7 @@ function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [goodPosts, setGoodPosts] = useState([]);
   const [badPosts, setBadPosts] = useState([]);
+  const [vaccine, setVaccine] = useState("az"); // az, pfizer, moderna,
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -96,7 +97,7 @@ function App() {
             position={{ lat: place.latitude, lng: place.longitude }}
             onClick={() => {
               setSelectedPlace(place);
-              getPosts(`${place.name}+az`)
+              getPosts(`${place.name}+${vaccine}`)
                 .then((res) => {
                   console.log(res);
                   setGoodPosts(res.data.goodPosts || []);
@@ -119,6 +120,25 @@ function App() {
           >
             <div>
               <h2>{selectedPlace.name}</h2>
+              <form
+                onChange={(event) => {
+                  const newVaccine = event.target.value;
+                  setVaccine(newVaccine);
+                  getPosts(`${selectedPlace.name}+${newVaccine}`)
+                    .then((res) => {
+                      console.log(res);
+                      setGoodPosts(res.data.goodPosts || []);
+                      setBadPosts(res.data.badPosts || []);
+                    })
+                    .catch((err) => console.log(err));
+                }}
+              >
+                <select value={vaccine}>
+                  <option value="az">Astra Zeneca</option>
+                  <option value="pfizer">Pfizer</option>
+                  <option value="moderna">Moderna</option>
+                </select>
+              </form>
               {goodPosts.map((post) => {
                 return <div>{post.content}</div>;
               })}
