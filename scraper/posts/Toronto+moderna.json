@@ -1,0 +1,32 @@
+{
+    "location": "Toronto",
+    "posts": [
+        {
+            "tweetId": 1388571782072963072,
+            "profileImg": "http://pbs.twimg.com/profile_images/423999610441318400/UJzq3aPM_normal.png",
+            "creationDate": "Sat May 01 19:11:25 +0000 2021",
+            "user": "Tim Fernihough",
+            "handle": "timfernihough",
+            "content": "@DaxGigandet I\u2019m Canadian but just got my first Moderna shot...emotional day and very thankful for all healthcare workers and volunteers",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388569260658679809,
+            "profileImg": "http://pbs.twimg.com/profile_images/1369466253346287616/-sUZeVkQ_normal.jpg",
+            "creationDate": "Sat May 01 19:01:24 +0000 2021",
+            "user": "Shirley Herrera",
+            "handle": "MissHerrera11",
+            "content": "@ScarboroughCAN @VaxHuntersCan @SHNcares Are they with Pfizer or Moderna or Astrazeneca?",
+            "isPositive": true
+        },
+        {
+            "tweetId": 1388565855462694914,
+            "profileImg": "http://pbs.twimg.com/profile_images/3467400556/90033f31e373084bdc4ae5119ad1e97a_normal.jpeg",
+            "creationDate": "Sat May 01 18:47:52 +0000 2021",
+            "user": "Toronto Kris",
+            "handle": "torontokris",
+            "content": "@Ashley57805832 @mikebulhoes @WCHospital @UnisonHCS @VaxHuntersCan It's mRNA so either Pfizer or Moderna. Pharmacies have most the AZ (as I'm sure your Dr also told you)",
+            "isPositive": true
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "location": "Toronto",
+    "posts": [
+        {
+            "tweetId": 1388572692220157957,
+            "profileImg": "http://pbs.twimg.com/profile_images/1334234452260769793/KyOUOLei_normal.jpg",
+            "creationDate": "Sat May 01 19:15:02 +0000 2021",
+            "user": "Ecem G\u00fcle\u00e7",
+            "handle": "EcemGulec",
+            "content": "@zafer_nergiz_ \u015eimdilik yok san\u0131r\u0131m. A\u015f\u0131 sorunu \u00e7\u00f6z\u00fcl\u00fcyor dediler. Oldum Biontech bende az \u00f6nce.",
+            "isPositive": false
+        },
+        {
+            "tweetId": 1388570571223576578,
+            "profileImg": "http://pbs.twimg.com/profile_images/1303085024326168581/4IODsBcE_normal.jpg",
+            "creationDate": "Sat May 01 19:06:37 +0000 2021",
+            "user": "Thomas Bartelmess",
+            "handle": "bartelmess",
+            "content": "@letsgettalking5 @dinipc @AnitaOakville @HonAhmedHussen Yes. As far as I know there is currently no delivery scheduled. Canada has a total of 22 Million AZ doses on order. (https://t.co/GpfDCdj0yC). In the past the forecast for AZ was not really predictable. So some doses might show up at short notice.",
+            "isPositive": false
+        },
+        {
+            "tweetId": 1388569260658679809,
+            "profileImg": "http://pbs.twimg.com/profile_images/1369466253346287616/-sUZeVkQ_normal.jpg",
+            "creationDate": "Sat May 01 19:01:24 +0000 2021",
+            "user": "Shirley Herrera",
+            "handle": "MissHerrera11",
+            "content": "@ScarboroughCAN @VaxHuntersCan @SHNcares Are they with Pfizer or Moderna or Astrazeneca?",
+            "isPositive": true
+        }
+    ]
+}
