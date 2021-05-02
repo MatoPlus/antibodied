@@ -1,4 +1,4 @@
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import ExploreIcon from "@material-ui/icons/Explore";
 import SearchIcon from "@material-ui/icons/Search";
 import {
@@ -14,7 +14,6 @@ import {
   InfoWindow,
   Marker,
   useLoadScript,
-  Size,
 } from "@react-google-maps/api";
 import React, { useState } from "react";
 import usePlacesAutocomplete, {
@@ -48,7 +47,8 @@ const options = {
   zoomControl: true,
 };
 
-const queryFilterFunc = queryInput => post => post.content.toLowerCase().includes(queryInput.toLowerCase());
+const queryFilterFunc = (queryInput) => (post) =>
+  post.content.toLowerCase().includes(queryInput.toLowerCase());
 
 function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
@@ -78,8 +78,12 @@ function App() {
   if (loadError) return "Error Loading Maps";
   if (!isLoaded) return "Loading Maps";
 
-  const goodPostsSearched = queryInput ? goodPosts.filter(queryFilterFunc(queryInput)) : goodPosts;
-  const badPostsSearched = queryInput ? badPosts.filter(queryFilterFunc(queryInput)) : badPosts;
+  const goodPostsSearched = queryInput
+    ? goodPosts.filter(queryFilterFunc(queryInput))
+    : goodPosts;
+  const badPostsSearched = queryInput
+    ? badPosts.filter(queryFilterFunc(queryInput))
+    : badPosts;
   const numGoodPostsSearched = goodPostsSearched.length;
   const numBadPostsSearched = badPostsSearched.length;
 
@@ -106,7 +110,6 @@ function App() {
         onLoad={onMapLoad}
         onZoomChanged={() => {
           if (mapRef.current) {
-            console.log(mapRef.current);
             setMarkerVisibility(mapRef.current.zoom >= 8);
           }
         }}
@@ -117,6 +120,7 @@ function App() {
             position={{ lat: place.latitude, lng: place.longitude }}
             label={{
               fontWeight: "bold",
+              fontSize: "smaller",
               text: place.name,
             }}
             visible={markerVisibility}
@@ -174,28 +178,34 @@ function App() {
                     onChange={(evt) => setQueryInput(evt.target.value.trim())}
                   />
                 </div>
-                ) : null}
+              ) : null}
               <div className="vaccine_change_wrapper">
-                <form
-                  onChange={(event) => {
-                    const newVaccine = event.target.value;
-                    setVaccine(newVaccine);
-                    getPosts(`${selectedPlace.name}+${newVaccine}`)
-                      .then((res) => {
-                        console.log(res);
-                        setGoodPosts(res.data.goodPosts || []);
-                        setBadPosts(res.data.badPosts || []);
-                        setNumGoodPosts(
-                          res.data.goodPosts ? res.data.goodPosts.length : 0
-                        );
-                        setNumBadPosts(
-                          res.data.badPosts ? res.data.badPosts.length : 0
-                        );
-                      })
-                      .catch((err) => console.log(err));
-                  }}
-                >
-                  <select value={vaccine} className="app_popupSelect" style={{ left: `${(numBadPosts || numGoodPosts) ? 10 : 0}px`, bottom: `${(numBadPosts || numGoodPosts) ? 10 : 0}px` }}>
+                <form>
+                  <select
+                    value={vaccine}
+                    className="app_popupSelect"
+                    style={{
+                      left: `${numBadPosts || numGoodPosts ? 10 : 0}px`,
+                      bottom: `${numBadPosts || numGoodPosts ? 10 : 0}px`,
+                    }}
+                    onChange={(event) => {
+                      const newVaccine = event.target.value;
+                      setVaccine(newVaccine);
+                      getPosts(`${selectedPlace.name}+${newVaccine}`)
+                        .then((res) => {
+                          console.log(res);
+                          setGoodPosts(res.data.goodPosts || []);
+                          setBadPosts(res.data.badPosts || []);
+                          setNumGoodPosts(
+                            res.data.goodPosts ? res.data.goodPosts.length : 0
+                          );
+                          setNumBadPosts(
+                            res.data.badPosts ? res.data.badPosts.length : 0
+                          );
+                        })
+                        .catch((err) => console.log(err));
+                    }}
+                  >
                     <option value="az">AstraZeneca</option>
                     <option value="pfizer">Pfizer</option>
                     <option value="moderna">Moderna</option>
@@ -205,19 +215,32 @@ function App() {
                   <h1>
                     <b>
                       {(
-                        (numGoodPostsSearched / (numBadPostsSearched + numGoodPostsSearched)) *
+                        (numGoodPostsSearched /
+                          (numBadPostsSearched + numGoodPostsSearched)) *
                         100
                       ).toFixed(1)}
                       % Good Vibes
                     </b>
                   </h1>
                 ) : null}
-                {numBadPostsSearched && !numGoodPostsSearched ? <h1><b>0% Good Vibes</b></h1> : null}
-                {!numBadPostsSearched && numGoodPostsSearched ? <h1><b>100% Good Vibes!</b></h1> : null}
+                {numBadPostsSearched && !numGoodPostsSearched ? (
+                  <h1>
+                    <b>0% Good Vibes</b>
+                  </h1>
+                ) : null}
+                {!numBadPostsSearched && numGoodPostsSearched ? (
+                  <h1>
+                    <b>100% Good Vibes!</b>
+                  </h1>
+                ) : null}
               </div>
               {numBadPostsSearched && numGoodPostsSearched ? (
                 <progress
-                  value={(numGoodPostsSearched / (numBadPostsSearched + numGoodPostsSearched)) * 100}
+                  value={
+                    (numGoodPostsSearched /
+                      (numBadPostsSearched + numGoodPostsSearched)) *
+                    100
+                  }
                   max="100"
                 />
               ) : null}
