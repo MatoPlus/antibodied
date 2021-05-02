@@ -155,18 +155,21 @@ function App() {
                     <option value="moderna">Moderna</option>
                   </select>
                 </form>
-
                 {numBadPosts && numGoodPosts ? (
-                  <progress
-                    value={(numGoodPosts / (numBadPosts + numGoodPosts)) * 100}
-                    max="100"
-                  />
+                  <h1>
+                    {((numGoodPosts / (numBadPosts + numGoodPosts)) * 100).toFixed(2)}% Good Reviews
+                  </h1>
                 ) : null}
               </div>
-
+              {numBadPosts && numGoodPosts ? (
+                <progress
+                  value={(numGoodPosts / (numBadPosts + numGoodPosts)) * 100}
+                  max="100"
+                />
+              ) : null}
               <table className="vaccine_tweets_table">
                 <tr>
-                  <td>
+                  <td className="tweet-tableGood">
                     {goodPosts.map((post) => (
                       <div>
                         <div className="tweet-header">
@@ -182,7 +185,7 @@ function App() {
                       </div>
                     ))}
                   </td>
-                  <td>
+                  <td className="tweet-tableBad">
                     {badPosts.map((post) => (
                       <div>
                         <div className="tweet-header">

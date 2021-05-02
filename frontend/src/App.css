@@ -96,10 +96,17 @@
 }
 
 .vaccine_tweets_table > tr > td {
-  background-color: #eee;
   border-radius: 5px;
   vertical-align: top;
   width: 50%;
+}
+
+.tweet-tableBad {
+  background-color: #f74343;
+}
+
+.tweet-tableGood {
+  background-color: #b7eb60;
 }
 
 .vaccine_tweets_table > tr > td > div {
@@ -128,17 +135,40 @@
 .tweet-header > table {
   margin-left: 8px;
   margin-top: 2px;
+  font-weight: 580;
+  color: #363636;
+  font-family: "Raleway", sans-serif;
 }
 
 .tweet-content {
   padding: 8px;
+  color: #363636;
+  font-family: "Raleway", sans-serif;
+}
+
+.vaccine_change_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vaccine_change_wrapper > h1 {
+  position: relative;
+  bottom: 12px;
+  right: 10px;
+  color: #363636;
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 progress[value] {
   -webkit-appearance: none;
   appearance: none;
   display: block;
-  margin: 0 auto 10px;
+  position: relative;
+  bottom: 18px;
+  margin: 0 auto;
   width: 600px;
   height: 20px;
 }
@@ -165,7 +195,7 @@ progress[value]::-webkit-progress-value {
   position: relative;
   bottom: 10px;
   left: 10px;
-  background-color: white;
+  background-color: #eee;
   border: none;
   padding: 10px;
   font-size: 20px;
@@ -174,7 +204,6 @@ progress[value]::-webkit-progress-value {
 }
 
 .app_popupSelect:hover {
-  background-color:#eee;
   cursor: pointer;
   border-radius: 5px;
 }
