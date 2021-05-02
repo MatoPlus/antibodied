@@ -1,31 +1,32 @@
-import React, { useRef, useCallback, useState } from "react";
-import "./App.css";
+import ExploreIcon from "@material-ui/icons/Explore";
+import SearchIcon from "@material-ui/icons/Search";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxOption,
+  ComboboxPopover,
+} from "@reach/combobox";
+import "@reach/combobox/styles.css";
 import {
   GoogleMap,
-  useLoadScript,
-  Marker,
   InfoWindow,
+  Marker,
+  useLoadScript,
 } from "@react-google-maps/api";
-import "@reach/combobox/styles.css";
-import mapStyles from "./mapStyles";
-import antibodyLogo from "./Antibody.png";
+import React, { useState } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import SearchIcon from "@material-ui/icons/Search";
-import ExploreIcon from "@material-ui/icons/Explore";
-import markers from "./constant";
+import antibodyLogo from "./Antibody.png";
 import { getPosts } from "./api";
+import "./App.css";
+import markers from "./constant";
+import mapStyles from "./mapStyles";
 
 const libraries = ["places"];
+
 const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
@@ -35,8 +36,8 @@ const mapContainerStyle = {
   /*100vw, 100vh*/
 }
 const center = {
-  lat: 43.653225,
-  lng: -79.383186,
+  lat: 43.653908,
+  lng: -79.384293,
 };
 
 const options = {
@@ -65,7 +66,7 @@ function App() {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+    mapRef.current.setZoom(10);
   }, []);
 
   if (loadError) return "Error Loading Maps";
@@ -88,7 +89,7 @@ function App() {
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
-        zoom={8}
+        zoom={10}
         center={center}
         options={options}
         onLoad={onMapLoad}
@@ -104,8 +105,12 @@ function App() {
                   console.log(res);
                   setGoodPosts(res.data.goodPosts || []);
                   setBadPosts(res.data.badPosts || []);
-                  setNumGoodPosts( res.data.goodPosts ? res.data.goodPosts.length : 0 );
-                  setNumBadPosts( res.data.badPosts ? res.data.badPosts.length : 0 );
+                  setNumGoodPosts(
+                    res.data.goodPosts ? res.data.goodPosts.length : 0
+                  );
+                  setNumBadPosts(
+                    res.data.badPosts ? res.data.badPosts.length : 0
+                  );
                 })
                 .catch((err) => console.log(err));
             }}
@@ -122,7 +127,7 @@ function App() {
               setSelectedPlace(null);
             }}
           >
-            <div className='app_popup'>
+            <div className="app_popup">
               <h2>{selectedPlace.name}</h2>
               <div className="vaccine_change_wrapper">
                 <form
@@ -134,8 +139,12 @@ function App() {
                         console.log(res);
                         setGoodPosts(res.data.goodPosts || []);
                         setBadPosts(res.data.badPosts || []);
-                        setNumGoodPosts( res.data.goodPosts ? res.data.goodPosts.length : 0 );
-                        setNumBadPosts( res.data.badPosts ? res.data.badPosts.length : 0 );
+                        setNumGoodPosts(
+                          res.data.goodPosts ? res.data.goodPosts.length : 0
+                        );
+                        setNumBadPosts(
+                          res.data.badPosts ? res.data.badPosts.length : 0
+                        );
                       })
                       .catch((err) => console.log(err));
                   }}
@@ -147,42 +156,47 @@ function App() {
                   </select>
                 </form>
 
-                {numBadPosts && numGoodPosts ? <progress value={(numGoodPosts / (numBadPosts + numGoodPosts)) * 100} max="100"/>: null}
+                {numBadPosts && numGoodPosts ? (
+                  <progress
+                    value={(numGoodPosts / (numBadPosts + numGoodPosts)) * 100}
+                    max="100"
+                  />
+                ) : null}
               </div>
 
               <table className="vaccine_tweets_table">
                 <tr>
                   <td>
-                    {goodPosts.map((post) =>
+                    {goodPosts.map((post) => (
                       <div>
                         <div className="tweet-header">
                           <img alt="" draggable="true" src={post.profileImg} />
                           <table>
-                            <tr><b>{post.user}</b></tr>
+                            <tr>
+                              <b>{post.user}</b>
+                            </tr>
                             <tr>@{post.handle}</tr>
                           </table>
                         </div>
-                        <div className="tweet-content">
-                          {post.content}
-                        </div>
+                        <div className="tweet-content">{post.content}</div>
                       </div>
-                    )}
+                    ))}
                   </td>
                   <td>
-                  {badPosts.map((post) =>
+                    {badPosts.map((post) => (
                       <div>
                         <div className="tweet-header">
                           <img alt="" draggable="true" src={post.profileImg} />
                           <table>
-                            <tr><b>{post.user}</b></tr>
+                            <tr>
+                              <b>{post.user}</b>
+                            </tr>
                             <tr>@{post.handle}</tr>
                           </table>
                         </div>
-                        <div className="tweet-content">
-                          {post.content}
-                        </div>
+                        <div className="tweet-content">{post.content}</div>
                       </div>
-                    )}
+                    ))}
                   </td>
                 </tr>
               </table>
@@ -258,7 +272,7 @@ function Search({ panTo }) {
           <ComboboxList>
             {status === "OK" &&
               data.map(({ id, description }) => (
-                <ComboboxOption key={id} value={description} />
+                <ComboboxOption key={id + description} value={description} />
               ))}
           </ComboboxList>
         </ComboboxPopover>
