@@ -272,18 +272,14 @@ function Search({ panTo }) {
     },
   });
 
-  const searchHelper = async (data) => {
-    if (data && data.length >= 1) {
-      const address = data[0].description;
-      setValue(address, false);
-      clearSuggestions();
-      try {
-        const results = await getGeocode({ address });
-        const { lat, lng } = await getLatLng(results[0]);
-        panTo({ lat, lng });
-      } catch (error) {
-        console.log("error!");
-      }
+  const searchHelper = async () => {
+    try {
+      const results = await getGeocode({ address: value });
+      console.log(results);
+      const { lat, lng } = await getLatLng(results[0]);
+      panTo({ lat, lng });
+    } catch (error) {
+      console.log("error!");
     }
   };
 
