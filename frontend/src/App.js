@@ -50,6 +50,8 @@ function App() {
   const [goodPosts, setGoodPosts] = useState([]);
   const [badPosts, setBadPosts] = useState([]);
   const [vaccine, setVaccine] = useState("az"); // az, pfizer, moderna,
+  const [numGoodPosts, setNumGoodPosts] = useState(0);
+  const [numBadPosts, setNumBadPosts] = useState(0);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -102,6 +104,8 @@ function App() {
                   console.log(res);
                   setGoodPosts(res.data.goodPosts || []);
                   setBadPosts(res.data.badPosts || []);
+                  setNumGoodPosts( res.data.goodPosts ? res.data.goodPosts.length : 0 );
+                  setNumBadPosts( res.data.badPosts ? res.data.badPosts.length : 0 );
                 })
                 .catch((err) => console.log(err));
             }}
@@ -118,7 +122,7 @@ function App() {
               setSelectedPlace(null);
             }}
           >
-            <div>
+            <div className='app_popup'>
               <h2>{selectedPlace.name}</h2>
               <div className="vaccine_change_wrapper">
                 <form
@@ -130,6 +134,8 @@ function App() {
                         console.log(res);
                         setGoodPosts(res.data.goodPosts || []);
                         setBadPosts(res.data.badPosts || []);
+                        setNumGoodPosts( res.data.goodPosts ? res.data.goodPosts.length : 0 );
+                        setNumBadPosts( res.data.badPosts ? res.data.badPosts.length : 0 );
                       })
                       .catch((err) => console.log(err));
                   }}
@@ -140,6 +146,8 @@ function App() {
                     <option value="moderna">Moderna</option>
                   </select>
                 </form>
+
+                {numBadPosts && numGoodPosts ? <progress value={(numGoodPosts / (numBadPosts + numGoodPosts)) * 100} max="100"/>: null}
               </div>
 
               <table className="vaccine_tweets_table">

@@ -30,6 +30,7 @@
   right: 1%;
   width: 300px;
   z-index: 10;
+  height: 45px;
 }
 
 .app_search input {
@@ -70,7 +71,7 @@
 
 .app_locateButton:hover {
   cursor: pointer;
-  background-color: #ff7070;
+  background-color: #f74343;
 }
 
 .app_locateIcon {
@@ -124,4 +125,25 @@
 
 .tweet-content {
   padding: 8px;
+}
+
+progress[value] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  margin: 10px auto;
+  width: 600px;
+  height: 20px;
+
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #f74343;
+  border-radius: 25px;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: #b7eb60;
+  border-radius: 25px 0 0 25px;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
 }
