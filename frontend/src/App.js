@@ -157,7 +157,7 @@ function App() {
                 </form>
                 {numBadPosts && numGoodPosts ? (
                   <h1>
-                    {((numGoodPosts / (numBadPosts + numGoodPosts)) * 100).toFixed(2)}% Good Reviews
+                    {((numGoodPosts / (numBadPosts + numGoodPosts)) * 100).toFixed(2)}% Good Vibes
                   </h1>
                 ) : null}
               </div>
@@ -246,6 +246,21 @@ function Search({ panTo }) {
     },
   });
 
+  const searchHelper = async (data) => {
+    if (data && data.length >= 1) {
+      const address = data[0].description;
+      setValue(address, false);
+      clearSuggestions();
+      try {
+        const results = await getGeocode({ address });
+        const { lat, lng } = await getLatLng(results[0]);
+        panTo({ lat, lng });
+      } catch (error) {
+        console.log("error!");
+      }
+    }
+  };
+
   return (
     <div className="app_search">
       <Combobox
@@ -267,10 +282,20 @@ function Search({ panTo }) {
           onChange={(e) => {
             setValue(e.target.value);
           }}
+          onKeyDown={async (e) => {
+            if (e.key === "Enter") {
+              searchHelper(data);
+            }
+          }}
           disabled={!ready}
           placeholder="Enter an Address "
         />
-        <SearchIcon className="app_searchLogo" />
+        <SearchIcon
+          className="app_searchLogo"
+          onClick={async () => {
+            searchHelper(data);
+          }}
+        />
         <ComboboxPopover>
           <ComboboxList>
             {status === "OK" &&

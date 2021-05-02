@@ -66,6 +66,7 @@ reach-portal > div {
   color: #363636 !important;
   background-color: white;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .app_locateButton {
