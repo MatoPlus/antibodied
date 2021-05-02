@@ -72,7 +72,7 @@ function App() {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(10);
+    mapRef.current.setZoom(11);
   }, []);
 
   if (loadError) return "Error Loading Maps";
@@ -104,7 +104,7 @@ function App() {
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
-        zoom={10}
+        zoom={11}
         center={center}
         options={options}
         onLoad={onMapLoad}
