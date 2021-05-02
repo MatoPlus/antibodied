@@ -95,7 +95,7 @@ function App() {
       </style>
       <div className="app_title">
         <img src={antibodyLogo} className="app_logo" />
-        <h1>Antibodied</h1>
+        <h1>Covibes</h1>
       </div>
 
       <Locate panTo={panTo} />

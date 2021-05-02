@@ -1,1 +1,1 @@
-# antibodied
+# Covibes (formerly known as Antibodied)
