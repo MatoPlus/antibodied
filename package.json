@@ -11,9 +11,9 @@
     "build:client": "(cd ./frontend && npm run build)",
     "build:clientx": "(cd ./frontend && npm run build:aot:prod)",
     "start": "npm run start:prod",
-    "start:prod": "(cd ./server && ./node_modules/.bin/ts-node ./src/index.ts)",
+    "start:prod": "(cd ./frontend && npm run start)",
     "start:dev": "npm run start:client & npm run start:server",
-    "start:client": "(cd ./client && npm run start)",
+    "start:client": "(cd ./frontend && npm run start)",
     "start:server": "(cd ./server && npm run start:watch)"
   },
   "repository": {
