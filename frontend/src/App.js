@@ -149,7 +149,7 @@ function App() {
                       .catch((err) => console.log(err));
                   }}
                 >
-                  <select value={vaccine} className='app_popupSelect'>
+                  <select value={vaccine} className="app_popupSelect">
                     <option value="az">AstraZeneca</option>
                     <option value="pfizer">Pfizer</option>
                     <option value="moderna">Moderna</option>
@@ -157,8 +157,16 @@ function App() {
                 </form>
                 {numBadPosts && numGoodPosts ? (
                   <h1>
-                    {((numGoodPosts / (numBadPosts + numGoodPosts)) * 100).toFixed(2)}% Good Vibes
+                    {(
+                      (numGoodPosts / (numBadPosts + numGoodPosts)) *
+                      100
+                    ).toFixed(2)}
+                    % Good Vibes
                   </h1>
+                ) : null}
+                {numBadPosts && !numGoodPosts ? <h1>0% Good Vibes</h1> : null}
+                {!numBadPosts && numGoodPosts ? (
+                  <h1>100% Good Vibes!</h1>
                 ) : null}
               </div>
               {numBadPosts && numGoodPosts ? (
@@ -167,42 +175,60 @@ function App() {
                   max="100"
                 />
               ) : null}
-              <table className="vaccine_tweets_table">
-                <tr>
-                  <td className="tweet-tableGood">
-                    {goodPosts.map((post) => (
-                      <div>
-                        <div className="tweet-header">
-                          <img alt="" draggable="true" src={post.profileImg} />
-                          <table>
-                            <tr>
-                              <b>{post.user}</b>
-                            </tr>
-                            <tr>@{post.handle}</tr>
-                          </table>
+              {numBadPosts && !numGoodPosts ? (
+                <progress value={0} max="100" />
+              ) : null}
+              {!numBadPosts && numGoodPosts ? (
+                <progress value={100} max="100" />
+              ) : null}
+              {!numBadPosts && !numGoodPosts ? (
+                <div className="no-post">It's quiet around here...</div>
+              ) : (
+                <table className="vaccine_tweets_table">
+                  <tr>
+                    <td className="tweet-tableGood">
+                      {goodPosts.map((post) => (
+                        <div>
+                          <div className="tweet-header">
+                            <img
+                              alt=""
+                              draggable="true"
+                              src={post.profileImg}
+                            />
+                            <table>
+                              <tr>
+                                <b>{post.user}</b>
+                              </tr>
+                              <tr>@{post.handle}</tr>
+                            </table>
+                          </div>
+                          <div className="tweet-content">{post.content}</div>
                         </div>
-                        <div className="tweet-content">{post.content}</div>
-                      </div>
-                    ))}
-                  </td>
-                  <td className="tweet-tableBad">
-                    {badPosts.map((post) => (
-                      <div>
-                        <div className="tweet-header">
-                          <img alt="" draggable="true" src={post.profileImg} />
-                          <table>
-                            <tr>
-                              <b>{post.user}</b>
-                            </tr>
-                            <tr>@{post.handle}</tr>
-                          </table>
+                      ))}
+                    </td>
+                    <td className="tweet-tableBad">
+                      {badPosts.map((post) => (
+                        <div>
+                          <div className="tweet-header">
+                            <img
+                              alt=""
+                              draggable="true"
+                              src={post.profileImg}
+                            />
+                            <table>
+                              <tr>
+                                <b>{post.user}</b>
+                              </tr>
+                              <tr>@{post.handle}</tr>
+                            </table>
+                          </div>
+                          <div className="tweet-content">{post.content}</div>
                         </div>
-                        <div className="tweet-content">{post.content}</div>
-                      </div>
-                    ))}
-                  </td>
-                </tr>
-              </table>
+                      ))}
+                    </td>
+                  </tr>
+                </table>
+              )}
             </div>
           </InfoWindow>
         )}
