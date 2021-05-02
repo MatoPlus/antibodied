@@ -78,7 +78,7 @@ function App() {
     <div className="App">
       <style>
         @import
-        url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+        url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
       </style>
       <div className="app_title">
         <img src={antibodyLogo} className="app_logo" />
@@ -178,11 +178,13 @@ function App() {
                 </form>
                 {numBadPosts && numGoodPosts ? (
                   <h1>
-                    {(
-                      (numGoodPosts / (numBadPosts + numGoodPosts)) *
-                      100
-                    ).toFixed(2)}
-                    % Good Vibes
+                    <b>
+                      {(
+                        (numGoodPosts / (numBadPosts + numGoodPosts)) *
+                        100
+                      ).toFixed(1)}
+                      % Good Vibes
+                    </b>
                   </h1>
                 ) : null}
                 {numBadPosts && !numGoodPosts ? <h1>0% Good Vibes</h1> : null}
