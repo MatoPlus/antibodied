@@ -137,7 +137,7 @@ progress[value] {
   -webkit-appearance: none;
   appearance: none;
   display: block;
-  margin: 10px auto;
+  margin: 0 auto 10px;
   width: 600px;
   height: 20px;
 }
@@ -151,4 +151,29 @@ progress[value]::-webkit-progress-value {
   background-color: #b7eb60;
   border-radius: 25px 0 0 25px;
   background-size: 35px 20px, 100% 100%, 100% 100%;
+}
+
+.app_popup > h2 {
+  font-size: 30px;
+  color: #363636;
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+}
+
+.app_popupSelect {
+  position: relative;
+  bottom: 10px;
+  left: 10px;
+  background-color: white;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  color: #363636;
+  font-family: "Raleway", sans-serif;
+}
+
+.app_popupSelect:hover {
+  background-color:#eee;
+  cursor: pointer;
+  border-radius: 5px;
 }

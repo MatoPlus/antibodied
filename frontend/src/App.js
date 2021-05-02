@@ -149,7 +149,7 @@ function App() {
                       .catch((err) => console.log(err));
                   }}
                 >
-                  <select value={vaccine}>
+                  <select value={vaccine} className='app_popupSelect'>
                     <option value="az">AstraZeneca</option>
                     <option value="pfizer">Pfizer</option>
                     <option value="moderna">Moderna</option>
