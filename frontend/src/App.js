@@ -157,7 +157,7 @@ function App() {
                 </form>
                 {numBadPosts && numGoodPosts ? (
                   <h1>
-                    {((numGoodPosts / (numBadPosts + numGoodPosts)) * 100).toFixed(2)}% Good Reviews
+                    {((numGoodPosts / (numBadPosts + numGoodPosts)) * 100).toFixed(2)}% Good Vibes
                   </h1>
                 ) : null}
               </div>
