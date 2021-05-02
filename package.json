@@ -8,10 +8,10 @@
     "install:server": "(cd ./server && npm install)",
     "postinstall":"npm run build",
     "build": "npm run build:client",
-    "build:client": "(cd ./client && npm run build)",
-    "build:clientx": "(cd ./client && npm run build:aot:prod)",
+    "build:client": "(cd ./frontend && npm run build)",
+    "build:clientx": "(cd ./frontend && npm run build:aot:prod)",
     "start": "npm run start:prod",
-    "start:prod": "(cd ./server && ./node_modules/.bin/ts-node ./src/main.ts)",
+    "start:prod": "(cd ./server && ./node_modules/.bin/ts-node ./src/index.ts)",
     "start:dev": "npm run start:client & npm run start:server",
     "start:client": "(cd ./client && npm run start)",
     "start:server": "(cd ./server && npm run start:watch)"
