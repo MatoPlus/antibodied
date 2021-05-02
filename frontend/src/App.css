@@ -30,6 +30,7 @@
   right: 1%;
   width: 300px;
   z-index: 10;
+  height: 45px;
 }
 
 .app_search input {
