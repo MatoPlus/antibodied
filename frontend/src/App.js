@@ -61,7 +61,7 @@ function App() {
   const [markerVisibility, setMarkerVisibility] = useState(true);
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
@@ -120,7 +120,6 @@ function App() {
             position={{ lat: place.latitude, lng: place.longitude }}
             label={{
               fontWeight: "bold",
-              fontSize: "smaller",
               text: place.name,
             }}
             visible={markerVisibility}
