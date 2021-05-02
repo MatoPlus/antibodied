@@ -129,6 +129,7 @@ function App() {
               anchor: new window.google.maps.Point(10, 40),
             }}
             onClick={() => {
+              setQueryInput("");
               setSelectedPlace(place);
               getPosts(`${place.name}+${vaccine}`)
                 .then((res) => {
