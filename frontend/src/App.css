@@ -150,6 +150,10 @@ reach-portal > div {
   font-family: "Raleway", sans-serif;
 }
 
+.tweet-header > table > tr > b {
+  overflow-wrap: anywhere;
+}
+
 .tweet-content {
   padding: 8px;
   color: #363636;
