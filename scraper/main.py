@@ -38,7 +38,7 @@ def convert_positivity(prm_x):
 def remove_handles(prm_x):
     return " ".join(filter(lambda n: "@" not in n, prm_x.split()))
 
-def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "10km", count = 4):
+def get_tweets_query_from_location(prm_query, prm_lat, prm_lon, resource_url = "https://api.twitter.com/1.1/search/tweets.json", radius = "10km", count = 100):
     rt_filtered_query = "{}%20-filter%3Aretweets".format(prm_query)
     return "{}?q={}&geocode={},{},{}&count={}&tweet_mode=extended&lang=en".format(resource_url, rt_filtered_query, prm_lat, prm_lon, radius, count)
 
@@ -47,8 +47,8 @@ if __name__ == "__main__":
 
     # Declare vaccine handles, compute search queries (expects 1 word per handle)
     vaccine_handles = {
-        "pfizer" : ["Pfizer"],
-        "moderna" : ["Moderna"],
+        # "pfizer" : ["Pfizer"],
+        # "moderna" : ["Moderna"],
         "az" : ["AstraZeneca", "Zeneca", "AZ"] # Will not use "Astra" as a keyword, as it is linked with a character from Valorant. Nice.
     }
     for vaccine_name in vaccine_handles:
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     # Load city names, latitude, longitude dictionaries into `cities_and_locs`
     cities_and_locs = []
-    with open("./scraper/canadacities.csv", "r") as csv_cities:
+    with open("./scraper/canadacities500.csv", "r") as csv_cities:
         cities_reader = csv.DictReader(csv_cities)
         for row in cities_reader:
             cities_and_locs.append(row)
@@ -148,13 +148,14 @@ if __name__ == "__main__":
         try:
             with open("./scraper/posts/{}.json".format(json_file_name), "w") as outfile:
                 json.dump(full_json_cont, outfile, indent = 4)
+            sleep(0.25)
         except:
-            print("   Exception 2: JSON dump failed")
+            print("  Exception 2: JSON dump failed")
 
     # Upload the locally saved file to GCP Cloud ticket
     print("\n=== Blob Uploading ===\n")
     for json_file_name in tweets_body:
-        # upload_blob("antibodied-posts", "./scraper/posts/{}.json".format(json_file_name), "{}.json".format(json_file_name))
+        upload_blob("antibodied-posts", "./scraper/posts/{}.json".format(json_file_name), "{}.json".format(json_file_name))
 
         # Arbitrary sleep to not overflow system
         sleep(0.25)

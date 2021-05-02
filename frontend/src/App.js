@@ -120,32 +120,64 @@ function App() {
           >
             <div>
               <h2>{selectedPlace.name}</h2>
-              <form
-                onChange={(event) => {
-                  const newVaccine = event.target.value;
-                  setVaccine(newVaccine);
-                  getPosts(`${selectedPlace.name}+${newVaccine}`)
-                    .then((res) => {
-                      console.log(res);
-                      setGoodPosts(res.data.goodPosts || []);
-                      setBadPosts(res.data.badPosts || []);
-                    })
-                    .catch((err) => console.log(err));
-                }}
-              >
-                <select value={vaccine}>
-                  <option value="az">Astra Zeneca</option>
-                  <option value="pfizer">Pfizer</option>
-                  <option value="moderna">Moderna</option>
-                </select>
-              </form>
-              {goodPosts.map((post) => {
-                return <div>{post.content}</div>;
-              })}
-              <div>--</div>
-              {badPosts.map((post) => {
-                return <div>{post.content}</div>;
-              })}
+              <div className="vaccine_change_wrapper">
+                <form
+                  onChange={(event) => {
+                    const newVaccine = event.target.value;
+                    setVaccine(newVaccine);
+                    getPosts(`${selectedPlace.name}+${newVaccine}`)
+                      .then((res) => {
+                        console.log(res);
+                        setGoodPosts(res.data.goodPosts || []);
+                        setBadPosts(res.data.badPosts || []);
+                      })
+                      .catch((err) => console.log(err));
+                  }}
+                >
+                  <select value={vaccine}>
+                    <option value="az">AstraZeneca</option>
+                    <option value="pfizer">Pfizer</option>
+                    <option value="moderna">Moderna</option>
+                  </select>
+                </form>
+              </div>
+
+              <table className="vaccine_tweets_table">
+                <tr>
+                  <td>
+                    {goodPosts.map((post) =>
+                      <div>
+                        <div className="tweet-header">
+                          <img alt="" draggable="true" src={post.profileImg} />
+                          <table>
+                            <tr><b>{post.user}</b></tr>
+                            <tr>@{post.handle}</tr>
+                          </table>
+                        </div>
+                        <div className="tweet-content">
+                          {post.content}
+                        </div>
+                      </div>
+                    )}
+                  </td>
+                  <td>
+                  {badPosts.map((post) =>
+                      <div>
+                        <div className="tweet-header">
+                          <img alt="" draggable="true" src={post.profileImg} />
+                          <table>
+                            <tr><b>{post.user}</b></tr>
+                            <tr>@{post.handle}</tr>
+                          </table>
+                        </div>
+                        <div className="tweet-content">
+                          {post.content}
+                        </div>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              </table>
             </div>
           </InfoWindow>
         )}
