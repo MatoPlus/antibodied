@@ -14,6 +14,7 @@ import {
   InfoWindow,
   Marker,
   useLoadScript,
+  Size,
 } from "@react-google-maps/api";
 import React, { useState } from "react";
 import usePlacesAutocomplete, {
@@ -57,6 +58,7 @@ function App() {
   const [numGoodPosts, setNumGoodPosts] = useState(0);
   const [numBadPosts, setNumBadPosts] = useState(0);
   const [queryInput, setQueryInput] = useState("");
+  const [markerVisibility, setMarkerVisibility] = useState(true);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -102,11 +104,30 @@ function App() {
         center={center}
         options={options}
         onLoad={onMapLoad}
+        onZoomChanged={() => {
+          if (mapRef.current) {
+            console.log(mapRef.current);
+            setMarkerVisibility(mapRef.current.zoom >= 8);
+          }
+        }}
       >
         {markers.map((place) => (
           <Marker
             key={place.name}
             position={{ lat: place.latitude, lng: place.longitude }}
+            label={{
+              fontWeight: "bold",
+              text: place.name,
+            }}
+            visible={markerVisibility}
+            icon={{
+              labelOrigin: new window.google.maps.Point(10, 50),
+              url:
+                "https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png",
+              size: new window.google.maps.Size(22, 40),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(10, 40),
+            }}
             onClick={() => {
               setSelectedPlace(place);
               getPosts(`${place.name}+${vaccine}`)
