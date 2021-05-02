@@ -176,6 +176,18 @@ reach-portal > div {
   font-weight: 400;
 }
 
+.tweets_search_wrapper {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.tweets_search_wrapper > div > div > input {
+  padding: 12px 12px;
+  font-family: "Raleway", sans-serif;
+}
+
 progress[value] {
   -webkit-appearance: none;
   appearance: none;
@@ -215,11 +227,18 @@ progress[value]::-webkit-progress-value {
   font-size: 20px;
   color: #363636;
   font-family: "Raleway", sans-serif;
+  border-radius: 6px;
 }
 
 .app_popupSelect:hover {
   cursor: pointer;
   border-radius: 5px;
+  background-color: #ddd;
+  color: #2b2b2b;
+}
+
+.app_popupSelect:active {
+  background-color: #ccc;
 }
 
 .no-post {

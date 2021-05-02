@@ -1,3 +1,4 @@
+import TextField from '@material-ui/core/TextField';
 import ExploreIcon from "@material-ui/icons/Explore";
 import SearchIcon from "@material-ui/icons/Search";
 import {
@@ -46,6 +47,8 @@ const options = {
   zoomControl: true,
 };
 
+const queryFilterFunc = queryInput => post => post.content.toLowerCase().includes(queryInput.toLowerCase());
+
 function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [goodPosts, setGoodPosts] = useState([]);
@@ -53,6 +56,7 @@ function App() {
   const [vaccine, setVaccine] = useState("az"); // az, pfizer, moderna,
   const [numGoodPosts, setNumGoodPosts] = useState(0);
   const [numBadPosts, setNumBadPosts] = useState(0);
+  const [queryInput, setQueryInput] = useState("");
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyChf5WkmIVMEVYF1QlnAKhWAqnFzCxzPnQ",
@@ -71,6 +75,11 @@ function App() {
 
   if (loadError) return "Error Loading Maps";
   if (!isLoaded) return "Loading Maps";
+
+  const goodPostsSearched = queryInput ? goodPosts.filter(queryFilterFunc(queryInput)) : goodPosts;
+  const badPostsSearched = queryInput ? badPosts.filter(queryFilterFunc(queryInput)) : badPosts;
+  const numGoodPostsSearched = goodPostsSearched.length;
+  const numBadPostsSearched = badPostsSearched.length;
 
   return (
     <div className="App">
@@ -129,6 +138,21 @@ function App() {
           >
             <div className="app_popup">
               <h2>{selectedPlace.name}</h2>
+              {numGoodPosts && numBadPosts ? (
+                <div className="tweets_search_wrapper">
+                  <TextField
+                    id="tweets_search_bar"
+                    placeholder="Search tweets"
+                    variant="outlined"
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    fullWidth
+                    onChange={(evt) => setQueryInput(evt.target.value.trim())}
+                  />
+                </div>
+                ) : null}
               <div className="vaccine_change_wrapper">
                 <form
                   onChange={(event) => {
@@ -149,47 +173,45 @@ function App() {
                       .catch((err) => console.log(err));
                   }}
                 >
-                  <select value={vaccine} className="app_popupSelect">
+                  <select value={vaccine} className="app_popupSelect" style={{ left: `${(numBadPosts || numGoodPosts) ? 10 : 0}px`, bottom: `${(numBadPosts || numGoodPosts) ? 10 : 0}px` }}>
                     <option value="az">AstraZeneca</option>
                     <option value="pfizer">Pfizer</option>
                     <option value="moderna">Moderna</option>
                   </select>
                 </form>
-                {numBadPosts && numGoodPosts ? (
+                {numBadPostsSearched && numGoodPostsSearched ? (
                   <h1>
                     <b>
                       {(
-                        (numGoodPosts / (numBadPosts + numGoodPosts)) *
+                        (numGoodPostsSearched / (numBadPostsSearched + numGoodPostsSearched)) *
                         100
                       ).toFixed(1)}
                       % Good Vibes
                     </b>
                   </h1>
                 ) : null}
-                {numBadPosts && !numGoodPosts ? <h1>0% Good Vibes</h1> : null}
-                {!numBadPosts && numGoodPosts ? (
-                  <h1>100% Good Vibes!</h1>
-                ) : null}
+                {numBadPostsSearched && !numGoodPostsSearched ? <h1><b>0% Good Vibes</b></h1> : null}
+                {!numBadPostsSearched && numGoodPostsSearched ? <h1><b>100% Good Vibes!</b></h1> : null}
               </div>
-              {numBadPosts && numGoodPosts ? (
+              {numBadPostsSearched && numGoodPostsSearched ? (
                 <progress
-                  value={(numGoodPosts / (numBadPosts + numGoodPosts)) * 100}
+                  value={(numGoodPostsSearched / (numBadPostsSearched + numGoodPostsSearched)) * 100}
                   max="100"
                 />
               ) : null}
-              {numBadPosts && !numGoodPosts ? (
+              {numBadPostsSearched && !numGoodPostsSearched ? (
                 <progress value={0} max="100" />
               ) : null}
-              {!numBadPosts && numGoodPosts ? (
+              {!numBadPostsSearched && numGoodPostsSearched ? (
                 <progress value={100} max="100" />
               ) : null}
-              {!numBadPosts && !numGoodPosts ? (
+              {!numBadPostsSearched && !numGoodPostsSearched ? (
                 <div className="no-post">It's quiet around here...</div>
               ) : (
                 <table className="vaccine_tweets_table">
                   <tr>
                     <td className="tweet-tableGood">
-                      {goodPosts.map((post) => (
+                      {goodPostsSearched.map((post) => (
                         <div>
                           <div className="tweet-header">
                             <img
@@ -209,7 +231,7 @@ function App() {
                       ))}
                     </td>
                     <td className="tweet-tableBad">
-                      {badPosts.map((post) => (
+                      {badPostsSearched.map((post) => (
                         <div>
                           <div className="tweet-header">
                             <img
