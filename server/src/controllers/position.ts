@@ -9,9 +9,9 @@ export const getPosts = async (req: Request, res: Response) => {
       const negativeDocuments: any[] = [];
 
       for (const post of response.data.posts) {
-        if (post.isPositive >= 0) {
+        if (post.isPositive > 0) {
           positiveDocuments.push(post);
-        } else {
+        } else if (post.isPositive < 0) {
           negativeDocuments.push(post);
         }
       }
